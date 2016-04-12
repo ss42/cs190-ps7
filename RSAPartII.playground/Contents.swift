@@ -194,14 +194,15 @@ class RSA: Crypto {
         let f_n = (p - 1) * (q - 1)
         let publicKey = self.publicKey().encryptionExponent
         let coprimeOptions = coprimes(f_n)
-        var decryptionExponent : Int!
+        var decryptionExponent : Int?
+        
         for i in coprimeOptions{
             if (i * publicKey) % f_n == 1 {
                 decryptionExponent = i
             }
         }
         
-        return PrivateKey(decryptionExponent: decryptionExponent, modulus: modulus)
+        return PrivateKey(decryptionExponent: decryptionExponent!, modulus: modulus)
     }
     
     // Decrypts cipherValue using the private key. Returns the plain value.
